@@ -1,0 +1,73 @@
+{
+    "database": {
+        "isExist": 1,
+        "name": "yuebao"
+    },
+    "table": {
+        "name": "user_info",
+        "schema": [
+            {
+                "colName": "user_id",
+                "dataType": "SYMBOL",
+                "comment": "用户ID，唯一标识符"
+            },
+            {
+                "colName": "username",
+                "dataType": "STRING",
+                "comment": "用户的名字"
+            },
+            {
+                "colName": "is_bot",
+                "dataType": "BOOL",
+                "comment": "是否为机器人"
+            },
+            {
+                "colName": "language_code",
+                "dataType": "SYMBOL",
+                "comment": "用户的语言（可选）"
+            },
+            {
+                "colName": "can_join_groups",
+                "dataType": "BOOL",
+                "comment": "是否可以加入群组（可选）"
+            },
+            {
+                "colName": "is_premium",
+                "dataType": "BOOL",
+                "comment": "是否为高级用户（可选）"
+            },
+            {
+                "colName": "invite_code",
+                "dataType": "SYMBOL",
+                "comment": "邀请码"
+            },
+            {
+                "colName": "invited_by",
+                "dataType": "SYMBOL",
+                "comment": "被谁邀请"
+            },
+            {
+                "colName": "phone",
+                "dataType": "STRING",
+                "comment": "手机号"
+            },
+            {
+                "colName": "join_datetime",
+                "dataType": "DATETIME",
+                "comment": "加入时间"
+            }
+        ],
+        "partitionCols": [
+            {
+                "colName": "join_datetime"
+            }
+        ],
+        "filterCols": [
+            {
+                "colName": "user_id",
+                "uniqueNum": 1
+            }
+        ]
+    },
+    "code": "db = database(directory=\"dfs://yuebao\")\ntbSchema=table(1:0, `user_id`username`is_bot`language_code`can_join_groups`is_premium`invite_code`invited_by`phone`join_datetime,[SYMBOL,STRING,BOOL,SYMBOL,BOOL,BOOL,SYMBOL,SYMBOL,STRING,DATETIME])\n\ndb.createPartitionedTable(table=tbSchema, tableName=`user_info, partitionColumns=`join_datetime, sortColumns=`user_id`join_datetime)\nsetColumnComment(table=loadTable(\"dfs://yuebao\",\"user_info\"),columnComments={user_id:\"用户ID，唯一标识符\",username:\"用户的名字\",is_bot:\"是否为机器人\",language_code:\"用户的语言（可选）\",can_join_groups:\"是否可以加入群组（可选）\",is_premium:\"是否为高级用户（可选）\",invite_code:\"邀请码\",invited_by:\"被谁邀请\",phone:\"手机号\",join_datetime:\"加入时间\"})"
+}
