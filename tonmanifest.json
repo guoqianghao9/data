@@ -1,5 +1,5 @@
 {
-      "url": "https://www.baidu.com", #网站介绍
-      "name": "Byuebao", #名称
-      "iconUrl": "https://cdn.dolphindb.cn/site/images/logo_color.svg"#图片
+      "url": "https://www.baidu.com", 
+      "name": "Byuebao",
+      "iconUrl": "https://cdn.dolphindb.cn/site/images/logo_color.svg"
 }
